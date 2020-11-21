@@ -19,8 +19,8 @@ public class IntArray implements IIntArray {
         }
         double total = 0;
 
-        for(int i=0; i<array.length; i++){
-            total = total + array[i];
+        for (int j : array) {
+            total = total + j;
         }
         double average = total / array.length;
         return Math.round(average * 100)/100.0;
@@ -54,9 +54,7 @@ public class IntArray implements IIntArray {
     public void appendLast(int value) {
         int size = array.length;
         int[] newArray = new int[size +1];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = array[i];
-        }
+        System.arraycopy(array, 0, newArray, 0, size);
         newArray[size] = value;
         this.array = newArray;
     }
@@ -81,12 +79,12 @@ public class IntArray implements IIntArray {
     @Override
     public int getAt(int pos) {
         return array[pos];
-
     }
 
     @Override
     public void setAt(int pos, int element) {
         array[pos] = element;
+
     }
 
     @Override
