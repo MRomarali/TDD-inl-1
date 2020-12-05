@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.NoSuchElementException;
+
 public class IntArray implements IIntArray {
 
     public IntArray() {
@@ -78,13 +80,21 @@ public class IntArray implements IIntArray {
 
     @Override
     public int getAt(int pos) {
-        return array[pos];
+        try {
+            return array[pos];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NoSuchElementException(e.getMessage());
+        }
+
     }
 
     @Override
     public void setAt(int pos, int element) {
-        array[pos] = element;
-
+        try {
+            array[pos] = element;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NoSuchElementException(e.getMessage());
+        }
     }
 
     @Override

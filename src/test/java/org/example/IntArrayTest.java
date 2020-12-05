@@ -149,17 +149,6 @@ public class IntArrayTest
         assertArrayEquals(expected,intArray.getAsArray());
     }
     @Test
-    public void TestGetAtIndexOutOfBoundsException()
-    {
-        //skicka indexOutOfBounds om talet som sökes inte finns i arrayen
-        int[] arr = {3, 4, 3};
-        IntArray intArray = new IntArray(arr);
-        intArray.getAt(10);
-        assertThrows(IndexOutOfBoundsException.class, intArray::getAsArray);
-
-    }
-
-    @Test
     public void TestSetAt()
     {
         //testfall om jag väljer att sätta nytt element på en viss position som redan innehåller ett element
@@ -168,15 +157,6 @@ public class IntArrayTest
         IntArray intArray = new IntArray(arr);
         intArray.setAt(1,3);
         assertArrayEquals(expected,intArray.getAsArray());
-    }
-    @Test
-    public void TestSetAtIndexOutOfBoundsException()
-    {
-        //skicka indexOutOfBounds om talet som sökes inte finns i arrayen
-        int[] arr = {3, 4, 3};
-        IntArray intArray = new IntArray(arr);
-        intArray.setAt(10, 10);
-        assertThrows(IndexOutOfBoundsException.class, intArray::getAsArray);
     }
 
     @Test
@@ -188,16 +168,6 @@ public class IntArrayTest
         IntArray intArray = new IntArray(arr);
         intArray.deleteAt(1);
         assertArrayEquals(expected,intArray.getAsArray());
-    }
-    @Test
-    public void TestDeleteAtIndexOutOfBoundsException()
-    {
-        //skicka indexOutOfBounds om talet som sökes inte finns i arrayen
-        int[] arr = {3, 8, 4};
-        IntArray intArray = new IntArray(arr);
-        intArray.deleteAt(9);
-        assertThrows(IndexOutOfBoundsException.class, intArray::getAsArray);
-
     }
 
     @Test
