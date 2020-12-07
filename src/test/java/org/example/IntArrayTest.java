@@ -4,6 +4,8 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.EmptyStackException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -27,8 +29,7 @@ public class IntArrayTest
     {
         //testfall om arrayen är tom blir även average värdet 0 alltså ingenting
         int[] arr = {};
-        assertEquals(0,new IntArray(arr).getAverage());
-
+        assertThrows(IllegalArgumentException.class, () -> intArray.getAverage());
     }
 
     @Test
@@ -94,10 +95,8 @@ public class IntArrayTest
     {
         //skicka indexOutOfBounds om talet som sökes inte finns i arrayen
         int[] arr = {3, 4, 3};
-        int[] expected4 = {};
-        assertArrayEquals(expected4,new IntArray(arr).findPositions(5));
+        assertThrows(IllegalArgumentException.class,() -> new IntArray(arr).findPositions(5));
     }
-
     @Test
     public void TestAppendLastOnEmptyArray()
     {
@@ -108,14 +107,7 @@ public class IntArrayTest
 
         int[] expected0 = {7};
         assertArrayEquals(expected0, intArray0.getAsArray());
-
-        //om jag har flera element i arrayen ska den också kunna lägga till element på slutet
-        int[] arr1 = {3, 4, 3};
-        int[] expected = {3, 4, 3, 5};
-        IntArray intArray = new IntArray(arr1);
-        intArray.appendLast(5);
-        assertArrayEquals(expected,intArray.getAsArray());
-    }
+}
     @Test
     public void TestAppendLast(){
         //om jag har flera element i arrayen ska den lägga till element på slutet
@@ -135,7 +127,6 @@ public class IntArrayTest
         IntArray intArray = new IntArray(arr);
         intArray.insertAt(1,8);
         assertArrayEquals(expected,intArray.getAsArray());
-
     }
 
     @Test
@@ -149,6 +140,14 @@ public class IntArrayTest
         assertArrayEquals(expected,intArray.getAsArray());
     }
     @Test
+    public void TestGetAtIndexOutOfBounds()
+    {
+        //testfall om jag har en array bestående av tre element och söker mig till en viss position ska jag hitta samma element i den önskade positionen
+        int[] arr = {3, 4, 3};
+        IntArray intArray = new IntArray(arr);
+        assertThrows(IndexOutOfBoundsException.class,() -> intArray.getAt(10));
+    }
+    @Test
     public void TestSetAt()
     {
         //testfall om jag väljer att sätta nytt element på en viss position som redan innehåller ett element
@@ -157,6 +156,14 @@ public class IntArrayTest
         IntArray intArray = new IntArray(arr);
         intArray.setAt(1,3);
         assertArrayEquals(expected,intArray.getAsArray());
+    }
+    @Test
+    public void TestSetAtIndexOutOfBounds()
+    {
+        //testfall om jag väljer att sätta nytt element på en viss position som redan innehåller ett element
+        int[] arr = {3, 4, 3};
+        IntArray intArray = new IntArray(arr);
+        assertThrows(IndexOutOfBoundsException.class,() ->intArray.setAt(14,14));
     }
 
     @Test
@@ -168,6 +175,14 @@ public class IntArrayTest
         IntArray intArray = new IntArray(arr);
         intArray.deleteAt(1);
         assertArrayEquals(expected,intArray.getAsArray());
+    }
+    @Test
+    public void TestDeleteAtIndexOutOfBounds()
+    {
+        //testfall om jag har en array med 4 element ska det återstå 3 om jag raderar ett element
+        int[] arr = {3, 8, 4, 3};
+        IntArray intArray = new IntArray(arr);
+        assertThrows(IndexOutOfBoundsException.class,() -> intArray.deleteAt(9));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 public class IntArray implements IIntArray {
@@ -17,7 +18,7 @@ public class IntArray implements IIntArray {
     @Override
     public double getAverage() {
         if (array.length < 1){
-            return 0.0;
+            throw new IllegalArgumentException("The Array is empty");
         }
         double total = 0;
 
@@ -48,8 +49,8 @@ public class IntArray implements IIntArray {
                 counter++;
             }
             return found;
-        }
-        return new int[0];
+        }else
+            throw new IllegalArgumentException("The Array is empty");
     }
 
     @Override
@@ -80,20 +81,29 @@ public class IntArray implements IIntArray {
 
     @Override
     public int getAt(int pos) {
-        try {
-            return array[pos];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoSuchElementException(e.getMessage());
+        if (array.length < pos){
+            throw new IndexOutOfBoundsException();
+        }else {
+            try {
+                return array[pos];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchElementException(e.getMessage());
+            }
         }
+
 
     }
 
     @Override
     public void setAt(int pos, int element) {
-        try {
-            array[pos] = element;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new NoSuchElementException(e.getMessage());
+        if (array.length < pos || array.length < element){
+            throw new IndexOutOfBoundsException();
+        }else{
+            try {
+                array[pos] = element;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchElementException(e.getMessage());
+            }
         }
     }
 
@@ -106,8 +116,9 @@ public class IntArray implements IIntArray {
         for (int value: array) {
             if (index == pos){
                 found = value;
-            }
-            else {
+            }else if (array.length < pos){
+                throw new IndexOutOfBoundsException();
+            }else {
               delete[counter] = value;
               counter++;
             }
